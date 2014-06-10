@@ -162,6 +162,10 @@ class SortableListener extends MappedEventSubscriber
         }
         $newPosition += $applyDelta;
 
+        if ($newPosition === -1) {
+            $newPosition = 0;
+        }
+
         // Add relocations
         call_user_func_array(array($this, 'addRelocation'), $relocation);
 
@@ -269,7 +273,9 @@ class SortableListener extends MappedEventSubscriber
             }
         }
         $newPosition += $applyDelta;
-
+        if ($newPosition === -1) {
+            $newPosition = 0;
+        }
         if ($relocation) {
             // Add relocation
             call_user_func_array(array($this, 'addRelocation'), $relocation);

@@ -182,6 +182,23 @@ class SortableGroupTest extends BaseTestCaseORM
         $this->assertEquals(range(0, self::SEATS - 1), $seats, 'Should be seats [ 0, 1, 2 ] to Prague Today');
     }
 
+    /**
+     * @test
+     */
+    public function shouldBeAbleToChangeGroupAndPosition()
+    {
+        $this->populate();
+
+        $repo = $this->em->getRepository(self::RESERVATION);
+        $reservation = $repo->findOneByName('Bratislava Today 2');
+
+        $reservation->setSeat(0);
+        $reservation->setDestination('Warsaw');
+        $this->em->flush($reservation);
+
+        $this->assertEquals(0, $reservation->getSeat());
+    }
+
     protected function getUsedEntityFixtures()
     {
         return array(
